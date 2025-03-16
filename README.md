@@ -1,7 +1,3 @@
-Great choice! I'll update the `README.md` to reflect the new name **`sbexec.py`**.  
-
----
-
 # **SBEXEC - Active Directory Penetration Testing Tool**  
 
 ## **Overview**  
@@ -13,7 +9,7 @@ Great choice! I'll update the `README.md` to reflect the new name **`sbexec.py`*
 - **Pass-the-Hash (PtH) attacks**  
 - **BloodHound integration** for AD data collection  
 - **Automatic logging and alerts**  
-
+✅ Ideal for OSCP & PNPT candidates: SBEXEC helps automate real-world AD attack techniques, including brute-force, Pass-the-Hash, and BloodHound enumeration, making it a valuable tool for exam preparation.
 ---
 
 ## **Features**  
